@@ -9,6 +9,8 @@ class PIDInterface:
     def __init__(self, shared_memory_object):
         self.shared_memory_object = shared_memory_object
         self.motor_wrapper = Can_Wrapper()
+        
+
 
         #SIMULATION
         self.simulation = Simulation(np.array([0, 0, 0, 0, 0, 0], dtype=float))
@@ -35,8 +37,8 @@ class PIDInterface:
                                   self.shared_memory_object.dvl_roll.value, 
                                   self.shared_memory_object.dvl_pitch.value, 
                                   self.shared_memory_object.dvl_yaw.value])
-        pid = PID(self.K_array[0], self.K_array[1], self.K_array[2], 0.5, self.motor_wrapper.motors)
-        return pid.update(current_state, desired_state)
+        self.pid = PID(self.K_array[0], self.K_array[1], self.K_array[2], 0.5)
+        return self.pid.update(current_state, desired_state)
     
     def apply_monte_carlo(self):
         self.shared_memory_object.dvl_x.value += np.random.normal(-0.2, 0.2)
@@ -49,6 +51,7 @@ class PIDInterface:
     def run_loop(self):
         np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})
         while self.shared_memory_object.running.value:
+            self.apply_monte_carlo()
             direction = self.run_pid()
             self.motor_wrapper.move_from_matrix(direction)
             motor = self.motor_wrapper.send_command()
@@ -71,11 +74,11 @@ class PIDInterface:
                                           self.shared_memory_object.dvl_roll.value, 
                                           self.shared_memory_object.dvl_pitch.value, 
                                           self.shared_memory_object.dvl_yaw.value]))
-            # print("error: ", error)
-            # print("error magnitude: ", np.linalg.norm(error))
-            # print("state: ", new_state)
+            print("error: ", error)
+            print("error magnitude: ", np.linalg.norm(error))
+            print("state: ", new_state)
             
-            time.sleep(0.1)
+            time.sleep(0.2)
             
 
             

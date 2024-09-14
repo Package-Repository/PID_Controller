@@ -1,8 +1,7 @@
 import numpy as np
 
 class PID:
-    def __init__(self, kp, ki, kd, dt, motor_array):
-        self.motor_array = motor_array
+    def __init__(self, kp, ki, kd, dt):
         self.kp = kp
         self.ki = ki
         self.kd = kd
@@ -22,7 +21,9 @@ class PID:
 
     def update(self, initial_state, desired_state):
         self.get_error(initial_state, desired_state)
-        self.output = np.add(np.add(np.multiply(self.kp, self.error), np.multiply(self.ki, self.integral_error)), np.multiply(self.kd, self.derivative_error))
+        self.output = np.add(np.add(np.multiply(self.kp, self.error), 
+                                    np.multiply(self.ki, self.integral_error)), 
+                                    np.multiply(self.kd, self.derivative_error))
         print("Output: ", self.output)
         self.prev_error = self.error
         self.prev_integral_error = self.integral_error
