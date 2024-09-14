@@ -9,12 +9,9 @@ class PIDInterface:
     def __init__(self, shared_memory_object):
         self.shared_memory_object = shared_memory_object
         self.motor_wrapper = Can_Wrapper()
-        
-
 
         #SIMULATION
         self.simulation = Simulation(np.array([0, 0, 0, 0, 0, 0], dtype=float))
-
 
         # array of PID k Values
         # rows = x, y, z, roll, pitch, yaw
@@ -22,6 +19,7 @@ class PIDInterface:
         self.K_array = np.array([[10, 10, 10, 10, 10, 10], 
                                  [.5, .5, .5, .5, .5, .5],
                                  [.01 , .01 , .01 , .01 , .01 , .01 ]])
+
         
     
     def run_pid(self):
