@@ -23,28 +23,3 @@ class PID:
     def set_target(self, target):
         self.target = target
 
-
-def main():
-    iterations = 100
-    target = [10, 20, 500]
-    Kp = 0.3
-    Ki = 0.04
-    Kd = 0.01
-    pids = [PID(Kp, Ki, Kd, target[i]) for i in range(len(target))]
-    measurements = np.empty((len(target), iterations))
-    measurement = np.zeros(len(target))
-    dt = 0.05
-    for i in range(iterations):
-        if i == iterations / 2:
-            for j in range(len(target)):
-                pids[j].set_target(target[j] * 2)
-        for j in range(len(target)):
-            measurement[j] += pids[j].update(measurement[j], dt)
-            measurements[j][i] = measurement[j]
-
-    #print last measurement
-    print(measurements[:,-1])
-
-if __name__ == '__main__':
-    main()
-
