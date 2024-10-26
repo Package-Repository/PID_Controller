@@ -1,5 +1,5 @@
 import numpy as np
-from PID_controller.six_dof_pid import PID
+from modules.pid.six_dof_pid import PID
 from motors.MotorWrapper import Can_Wrapper
 from motors.motor_simulation import Simulation
 import time
