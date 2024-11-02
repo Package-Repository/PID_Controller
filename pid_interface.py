@@ -1,9 +1,12 @@
+import sys
+import os
 import numpy as np
-from modules.pid.six_dof_pid import PID
+import time
+# change import file path to parent folder to get files in other dirs
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from pid.six_dof_pid import PID
 from motors.MotorWrapper import Can_Wrapper
 from motors.motor_simulation import Simulation
-import time
-
 
 class PIDInterface:
     def __init__(self, shared_memory_object):
