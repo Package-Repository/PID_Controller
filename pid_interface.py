@@ -4,6 +4,13 @@ from modules.pid.six_dof_pid import PID
 from modules.motors.MotorWrapper import Can_Wrapper
 from modules.motors.motor_simulation import Simulation
 
+"""
+    discord: @kialli
+    github: @kchan5071
+
+    PID methods, integration (orientation code)
+
+"""
 class PIDInterface:
     def __init__(self, shared_memory_object):
         self.shared_memory_object = shared_memory_object
@@ -13,11 +20,11 @@ class PIDInterface:
         self.simulation = Simulation(np.array([0, 0, 0, 0, 0, 0], dtype=float))
 
         # array of PID k Values
-        # rows = x, y, z, roll, pitch, yaw
-        # columns = kp, ki, kd
-        self.K_array = np.array([[10, 10, 10, 10, 10, 10], 
-                                 [.5, .5, .5, .5, .5, .5],
-                                 [.01 , .01 , .01 , .01 , .01 , .01 ]])
+        # cols = x, y, z, roll, pitch, yaw
+        # rows = kp, ki, kd
+        self.K_array = np.array([[10, 10, 0, 0, 0, 0], 
+                                 [.5, .5, .0, .0, .0, .0],
+                                 [.01 , .01 , .00 , .00 , .00 , .00 ]])
 
         
     

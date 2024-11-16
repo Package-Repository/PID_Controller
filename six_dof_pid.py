@@ -1,5 +1,13 @@
 import numpy as np
 
+"""
+    discord: @kialli
+    github: @kchan5071
+
+    PID six DOF methods
+
+"""
+
 class PID:
     def __init__(self, kp, ki, kd, dt):
         self.kp = kp
